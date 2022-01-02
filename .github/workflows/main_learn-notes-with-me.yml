@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      SKIP_PREFLIGHT_CHECK: true
 
     steps:
       - uses: actions/checkout@v2
@@ -31,7 +33,7 @@ jobs:
         run: |
           cd ./client
           yarn install
-          $env:SKIP_PREFLIGHT_CHECK=true; yarn build
+          yarn build
           cd ..
       - name: Copy client to dist
         run: |
