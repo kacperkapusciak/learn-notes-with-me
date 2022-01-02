@@ -31,7 +31,7 @@ jobs:
         run: |
           cd ./client
           yarn install
-          SKIP_PREFLIGHT_CHECK=true yarn build
+          $env:SKIP_PREFLIGHT_CHECK=true; yarn build
           cd ..
       - name: Copy client to dist
         run: |
