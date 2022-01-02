@@ -35,6 +35,11 @@ jobs:
           yarn install
           yarn build
           cd ..
+
+      - name: Remove client node_modules
+        run: |
+          rm -rf ./client/node_modules/
+
       - name: Copy client to dist
         run: |
           cp -r client/build dist
