@@ -22,10 +22,21 @@ jobs:
           node-version: '14.x'
           cache: 'yarn'
 
-      - name: yarn install and build
+      - name: Install and build server
         run: |
           yarn install
           yarn build
+
+      - name: Install and build client
+        run: |
+          cd ./client
+          yarn install
+          yarn build
+          cd ..
+      - name: Copy client to dist
+        run: |
+          cp -r client/build dist
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
