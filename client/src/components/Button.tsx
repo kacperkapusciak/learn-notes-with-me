@@ -4,11 +4,19 @@ import styled from 'styled-components';
 interface Props {
   onClick: MouseEventHandler;
   children: string;
+  active?: boolean;
 }
 
-const Wrapper = styled.div`
+interface WrapperProps {
+  active: boolean;
+}
+
+const Wrapper = styled.div<WrapperProps>`
   align-items: center;
-  background: linear-gradient(300deg, rgba(8, 212, 105, 1) 56%, rgba(109, 255, 69, 1) 100%);
+  background: ${({ active }) =>
+    active
+      ? 'linear-gradient(300deg, rgba(8, 212, 105, 1) 56%, rgba(109, 255, 69, 1) 100%)'
+      : '#ccc'};
   border: 0;
   border-radius: 10px;
   box-sizing: border-box;
@@ -54,9 +62,9 @@ const Text = styled.span`
   transition: all 200ms;
 `;
 
-function Button({ children, onClick }: Props) {
+function Button({ children, onClick, active = true }: Props) {
   return (
-    <Wrapper onClick={onClick}>
+    <Wrapper onClick={onClick} active={active}>
       <Text>{children}</Text>
     </Wrapper>
   );

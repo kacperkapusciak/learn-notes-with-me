@@ -4,7 +4,6 @@ export const AVAILABLE_NOTES = [
   'd',
   'd sharp',
   'e',
-  'e sharp',
   'f',
   'f sharp',
   'g',

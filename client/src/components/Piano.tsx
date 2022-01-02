@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Dispatch, Fragment, useState } from 'react';
 import useSound from 'use-sound';
 import styled from 'styled-components';
 
@@ -6,6 +6,14 @@ import styled from 'styled-components';
 import whiteKeysSounds from '../sounds/grand_piano_white_only.mp3';
 // @ts-ignore
 import blackKeysSounds from '../sounds/grand_piano_black_only.mp3';
+import { PlayFunction } from 'use-sound/dist/types';
+import checkNote from '../utils/checkNote';
+
+interface KeyProps {
+  correct: boolean;
+  pianoTouched: boolean;
+  canChangeColor: boolean;
+}
 
 const Container = styled.div`
   display: flex;
@@ -14,20 +22,30 @@ const Container = styled.div`
   height: 18vw;
   margin-bottom: 20px;
 `;
-const WhiteKey = styled.div`
+const WhiteKey = styled.div<KeyProps>`
   width: 7vw;
   height: 17vw;
   border: 1px solid #ccc;
   border-radius: 2px 2px 5px 5px;
-  background-color: white;
-  box-shadow: 0px 9px 0px 0px rgba(0, 0, 0, 0.5);
+  background-color: ${({ correct, pianoTouched, canChangeColor }) =>
+    !pianoTouched || !canChangeColor
+      ? 'white'
+      : correct
+      ? 'rgba(8, 212, 105, 1)'
+      : 'rgba(255, 12, 90, 1)'};
+  box-shadow: 0px 9px 0px 0px #bbb;
 `;
-const BlackKey = styled.div`
+const BlackKey = styled.div<KeyProps>`
   width: 5vw;
   height: 9vw;
   border-radius: 2px 2px 5px 5px;
-  background-color: black;
-  box-shadow: 0px 9px 0px 0px rgba(0, 0, 0, 0.8);
+  background-color: ${({ correct, pianoTouched, canChangeColor }) =>
+    !pianoTouched || !canChangeColor
+      ? 'black'
+      : correct
+      ? 'rgba(8, 212, 105, 1)'
+      : 'rgba(255, 12, 90, 1)'};
+  box-shadow: 0px 9px 0px 0px #333;
   margin-right: 2vw;
 `;
 const PhantomBlackKey = styled.div`
@@ -46,7 +64,17 @@ const BlackKeysWrapper = styled.div`
   left: 4.5vw;
 `;
 
-function Piano() {
+interface Props {
+  correctNote: string;
+  progressLesson: (a: string, b: string) => void;
+  pianoTouched: boolean;
+  setPianoTouched: Dispatch<boolean>;
+}
+
+function Piano({ correctNote, progressLesson, pianoTouched, setPianoTouched }: Props) {
+  const [keyToLightUp, setKeyToLightUp] = useState<string>();
+  const [isKeyLighted, setKeyLighted] = useState<boolean>(false);
+
   const whiteKeys = ['c', 'd', 'e', 'f', 'g', 'a', 'b'];
   const blackKeys = ['c#', 'd#', 'f#', 'g#', 'a#'];
   const [playWhiteKey] = useSound(whiteKeysSounds, {
@@ -70,23 +98,49 @@ function Piano() {
     },
   });
 
+  function playNote(key: string, play: PlayFunction) {
+    if (!pianoTouched) {
+      setKeyToLightUp(key);
+    }
+    play({ id: key });
+    setPianoTouched(true);
+    progressLesson(correctNote, key);
+  }
+
   return (
     <Container>
       <WhiteKeysWrapper>
         {whiteKeys.map((key) => (
-          <WhiteKey onClick={() => playWhiteKey({ id: key })} key={key} />
+          <WhiteKey
+            onClick={() => playNote(key, playWhiteKey)}
+            key={key}
+            pianoTouched={pianoTouched}
+            canChangeColor={keyToLightUp === key}
+            correct={checkNote(correctNote, key)}
+          />
         ))}
       </WhiteKeysWrapper>
       <BlackKeysWrapper>
         {blackKeys.map((key) =>
           key === 'd#' ? (
             <Fragment key={key}>
-              <BlackKey onClick={() => playBlackKey({ id: key })} />
+              <BlackKey
+                onClick={() => playNote(key, playBlackKey)}
+                pianoTouched={pianoTouched}
+                canChangeColor={keyToLightUp === key}
+                correct={checkNote(correctNote, key)}
+              />
               <PhantomBlackKey />
             </Fragment>
           ) : (
-            <BlackKey onClick={() => playBlackKey({ id: key })} key={key} />
-          )
+            <BlackKey
+              onClick={() => playNote(key, playBlackKey)}
+              key={key}
+              pianoTouched={pianoTouched}
+              canChangeColor={keyToLightUp === key}
+              correct={checkNote(correctNote, key)}
+            />
+          ),
         )}
       </BlackKeysWrapper>
     </Container>
