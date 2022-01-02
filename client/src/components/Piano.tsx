@@ -73,7 +73,6 @@ interface Props {
 
 function Piano({ correctNote, progressLesson, pianoTouched, setPianoTouched }: Props) {
   const [keyToLightUp, setKeyToLightUp] = useState<string>();
-  const [isKeyLighted, setKeyLighted] = useState<boolean>(false);
 
   const whiteKeys = ['c', 'd', 'e', 'f', 'g', 'a', 'b'];
   const blackKeys = ['c#', 'd#', 'f#', 'g#', 'a#'];

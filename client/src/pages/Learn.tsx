@@ -11,7 +11,6 @@ import Piano from '../components/Piano';
 import Button from '../components/Button';
 import FullPageCenter from '../components/FullPageCenter';
 import Spinner from '../components/Spinner';
-import formatNote from '../utils/formatNote';
 import checkNote from '../utils/checkNote';
 
 const Spacer = styled.div`
