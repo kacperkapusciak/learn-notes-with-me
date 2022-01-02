@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     env:
       SKIP_PREFLIGHT_CHECK: true
 
@@ -72,5 +72,5 @@ jobs:
         with:
           app-name: 'learn-notes-with-me'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_776D97FB508F47E1A512D8E364EC6237 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_270332ca4f074306a91197408bb9bf72 }}
           package: release.zip
