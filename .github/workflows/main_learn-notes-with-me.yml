@@ -38,7 +38,7 @@ jobs:
 
       - name: Remove client node_modules
         run: |
-          rm -rf ./client/node_modules/
+          rm -r ./client/node_modules/
 
       - name: Copy client to dist
         run: |
