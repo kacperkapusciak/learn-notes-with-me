@@ -24,16 +24,18 @@ jobs:
           node-version: '14.x'
           cache: 'yarn'
 
-      - name: Install and build server
+      - name: Install, build and test server
         run: |
           yarn install
           yarn build
+          yarn test
 
-      - name: Install and build client
+      - name: Install, build and test client
         run: |
           cd ./client
           yarn install
           yarn build
+          yarn test
           cd ..
 
       - name: Remove client node_modules
