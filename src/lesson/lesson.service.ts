@@ -1,10 +1,4 @@
-import {
-  Get,
-  Injectable,
-  Param,
-  Post,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/azure-database';
 import { Lesson } from './lesson.entity';
 import { LessonDto } from './lesson.dto';
@@ -31,9 +25,7 @@ export class LessonService {
           },
         ],
       };
-      const { resources } = await this.container.items
-        .query(querySpec)
-        .fetchAll();
+      const { resources } = await this.container.items.query(querySpec).fetchAll();
       return resources[0];
     } catch (error) {
       // Entity not found
