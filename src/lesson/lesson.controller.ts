@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, HttpCode } from '@nestjs/common';
 import { LessonService } from './lesson.service';
 import { LessonDto } from './lesson.dto';
 
@@ -37,5 +37,11 @@ export class LessonController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     this.lessonService.delete(id);
+  }
+
+  @Post('/badrequest')
+  @HttpCode(500)
+  async badReqest() {
+    // pass
   }
 }

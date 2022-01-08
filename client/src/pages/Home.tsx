@@ -12,15 +12,15 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 const Spacer = styled.div`
-  margin: 30px;
+  margin: 16px;
 `;
 
 function Home() {
   const navigate = useNavigate();
 
-  const sendInvalidRequest = async () => {
+  const sendRequest = async (url: string) => {
     try {
-      await axios.get('/test');
+      await axios.post(url);
     } catch (e) {
       // pass
     }
@@ -31,7 +31,9 @@ function Home() {
       <Wrapper>
         <Button onClick={() => navigate('/learn')}>Start a lesson</Button>
         <Spacer />
-        <Button onClick={sendInvalidRequest}>Send invalid request</Button>
+        <Button onClick={() => sendRequest('/test')}>Trigger 404 response</Button>
+        <Spacer />
+        <Button onClick={() => sendRequest('/lesson/badrequest')}>Trigger 500 response</Button>
       </Wrapper>
     </FullPageCenter>
   );
