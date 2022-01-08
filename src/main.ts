@@ -3,8 +3,12 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
+import * as applicationInsights from 'applicationinsights';
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+
+applicationInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING).start();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
