@@ -8,7 +8,10 @@ import * as applicationInsights from 'applicationinsights';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-applicationInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING).start();
+applicationInsights
+  .setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
+  .setSendLiveMetrics(true)
+  .start();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
