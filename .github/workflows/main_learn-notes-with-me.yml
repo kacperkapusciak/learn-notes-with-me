@@ -16,6 +16,7 @@ jobs:
       SKIP_PREFLIGHT_CHECK: true
       # https://github.com/microsoft/ApplicationInsights-JS/issues/281
       REACT_APP_APPINSIGHTS_INSTRUMENTATIONKEY: ${{ secrets.REACT_APP_APPINSIGHTS_INSTRUMENTATIONKEY }}
+      REACT_APP_ENVIRONMENT: production
 
     steps:
       - uses: actions/checkout@v2
