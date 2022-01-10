@@ -2,10 +2,8 @@ import React, { Dispatch, Fragment, useState } from 'react';
 import useSound from 'use-sound';
 import styled from 'styled-components';
 
-// @ts-ignore
-import whiteKeysSounds from '../sounds/grand_piano_white_only.mp3';
-// @ts-ignore
-import blackKeysSounds from '../sounds/grand_piano_black_only.mp3';
+import { blobStorage } from '../external';
+
 import { PlayFunction } from 'use-sound/dist/types';
 import checkNote from '../utils/checkNote';
 
@@ -76,6 +74,10 @@ function Piano({ correctNote, progressLesson, pianoTouched, setPianoTouched }: P
 
   const whiteKeys = ['c', 'd', 'e', 'f', 'g', 'a', 'b'];
   const blackKeys = ['c#', 'd#', 'f#', 'g#', 'a#'];
+
+  const whiteKeysSounds = blobStorage.get('sounds/grand_piano_white_only.mp3');
+  const blackKeysSounds = blobStorage.get('sounds/grand_piano_black_only.mp3');
+
   const [playWhiteKey] = useSound(whiteKeysSounds, {
     sprite: {
       c: [0, 800],
