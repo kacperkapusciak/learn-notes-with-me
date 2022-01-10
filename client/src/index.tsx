@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppInsightsContext } from '@microsoft/applicationinsights-react-js';
-import { reactPlugin, history } from './external/appInsights';
+import { reactPlugin, history } from './external';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
 import App from './App';

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { api } from '../api';
+import { api } from '../external';
 
 import Button from '../components/Button';
 import FullPageCenter from '../components/FullPageCenter';
