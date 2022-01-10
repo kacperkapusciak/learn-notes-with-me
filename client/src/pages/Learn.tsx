@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../api/instance';
+import { api } from '../api';
 
 import CloseIcon from '../icons/close_black_24dp.svg';
 
@@ -88,7 +88,7 @@ function Learn() {
 
   useEffect(() => {
     async function startLesson() {
-      const { data } = await axios.post('/lesson/start');
+      const { data } = await api.post('/lesson/start');
       if (data) {
         setLessonData(data);
       }

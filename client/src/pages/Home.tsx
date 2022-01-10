@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import axios from '../api/instance';
+import { api } from '../api';
 
 import Button from '../components/Button';
 import FullPageCenter from '../components/FullPageCenter';
@@ -20,7 +20,7 @@ function Home() {
 
   const sendRequest = async (url: string) => {
     try {
-      await axios.post(url);
+      await api.post(url);
     } catch (e) {
       // pass
     }

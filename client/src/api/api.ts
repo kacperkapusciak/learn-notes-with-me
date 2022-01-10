@@ -5,8 +5,6 @@ const baseURL =
     ? 'https://learn-notes-with-me.azurewebsites.net/api/'
     : 'http://localhost:3000/api/';
 
-const instance = axios.create({
+export const api = axios.create({
   baseURL,
 });
-
-export default instance;
