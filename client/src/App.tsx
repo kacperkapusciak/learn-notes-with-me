@@ -1,40 +1,28 @@
 import React, { Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import GlobalStyle from './style/GlobalStyle';
+import RequireAuth from './components/RequireAuth';
 
-const Home = React.lazy(() => import('./pages/Home'));
+import Home from './pages/Home';
 const Learn = React.lazy(() => import('./pages/Learn'));
-const Login = React.lazy(() => import('./pages/Login'));
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route
-          path="/"
+          path="learn"
           element={
             <Suspense fallback={null}>
-              <Home />
+              <RequireAuth>
+                <Learn />
+              </RequireAuth>
             </Suspense>
           }
         />
-        <Route
-          path="/learn"
-          element={
-            <Suspense fallback={null}>
-              <Learn />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Suspense fallback={null}>
-              <Login />
-            </Suspense>
-          }
-        />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <GlobalStyle />
     </>
