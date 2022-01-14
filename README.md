@@ -1,73 +1,125 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Dokumentacja projektu Learn Notes With Me
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Learn Notes With Me to aplikacja do nauki podstawowych nut na pianinie.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+👉 [https://learn-notes-with-me.azurewebsites.net/](https://learn-notes-with-me.azurewebsites.net/)
 
-## Description
+# Opis implementacji
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Aplikacja serwerowa zbudowana jest przy pomocy narzędzia `NestJS` na środowisku `NodeJS`. Aplikacja kliencka zaimplementowana jest dzięki bibliotece `React`. Zarówno po stronie serwera jak i klienta aplikacja napisana jest w języku `TypeScript`.
 
-## Installation
+Aplikacja wdrażana jest na chmurę Microsoft Azure przy pomocy Github Actions. Przed wdrożeniem uruchamiane są testy jednostkowe.
+
+# Struktura katalogów
 
 ```bash
-$ npm install
+├── README.md
+├── client/ # aplikację kliencką
+│   ├── package.json # zależności części klienckiej
+│   ├── public/ # folder ze statycznym plikiem HTML oraz ikoną aplikacji
+│   └── src/
+│       ├── __tests__ # folder zawierający testy jednostkowe części kliienckiej
+│       ├── index.tsx # plik, od którego rozpoczyna się uruchomienie aplikacji klienckiej
+│       ├── App.tsx # właściwa część aplikacji
+│       ├── components/ # reużywalne komponenty
+│       ├── external/ # folder zawierający pliki konfiguracyjne z zewnętrznymi serwisami
+│       ├── icons/ # ikony
+│       ├── pages/ # ekrany aplikacji
+│       ├── style/ # globalne ustawienie styli aplikacji
+│       └── utils/ 
+├── src/ # folder z plikami źródłowymi części serwerowej
+│   ├── lesson/ # moduł odpowiadającego za logikę nauki nut
+│   └── main.ts # plik, od którego rozpoczyna się uruchomienie aplikacji klienckiej
+├── test/ # folder zawierający testy jednostkowe części serwerowej
+└── package.json # zależności części serwerowej
 ```
 
-## Running the app
+# Interfejs graficzny
 
-```bash
-# development
-$ npm run start
+Na interfejs aplikacji składają się trzy ekrany:
 
-# watch mode
-$ npm run start:dev
+## Strona startowa
 
-# production mode
-$ npm run start:prod
-```
+Na tej stronie jedynym elementem wartym uwagi jest przycisk znajujący się w prawym górnym rogu interfejsu służący do logowania się w aplikacji.
 
-## Test
+![](screenshots/unauthorised.png)
 
-```bash
-# unit tests
-$ npm run test
+## Strona główna
 
-# e2e tests
-$ npm run test:e2e
+Głównym elementem strony głównej projektu jest przycisk rozpoczynający lekcję. Użytkownik ma również możliwość wylogowania się z aplikacji. Na stronie znajdują się przyciski pomocnicze wywołujące błędy 404 oraz 500 służące do łatwego wyzwalania alertów mailowych podczas live-demo 😅
 
-# test coverage
-$ npm run test:cov
-```
+![](screenshots/home.png)
 
-## Support
+### Ekran nauki
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+W centralnej części interfejsu pokazywana jest nuta, którą użytkownik powinien zagrać na interaktywnym pianinie. Prawidłowa odpowiedź skutkuje naliczeniem punktów oraz odblokowaniem przycisku pozwalającego przejście do następnego kroku lekcji. Lekcja domyślnie składa się z pięciu kroków. Użytkownik ma również możliwość powrotu z tego ekranu przy pomocy "X" znajdującego się w prawym górnym rogu interfejsu.
 
-## Stay in touch
+![](screenshots/lesson.png)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Wykorzystane komponenty Azure
 
-## License
+Wszystkie wykorzystanie komponenty Azure, z wyjątkiem autoryzacji `Azure Active Directory` ze względu na ograniczenia praw dostępu obecnych w organizacji, znajdują się w jednym `Resource group` .
 
-Nest is [MIT licensed](LICENSE).
+![](screenshots/resource-group.png)
+
+Na wykorzystane komponenty w projekcie składa się:
+- App Service
+  - Deployment slots
+- Application Insights
+  - Metryki
+  - Alerty
+  - Performance
+- Azure Cosmos DB
+- Storage account
+- Active Directory
+
+## App Service
+
+Kluczową częścią projektu jest aplikacja Node wdrożona jako WebApp.
+
+Aplikacja wdrożona jest na dwa środowiska - `production` oraz `staging`. Skonfigurowane jest poprzez użycie tzw. deployment sloty a wdrożenie na odpowiednie środowiska odbywa się dzięki Github Actions. Ponieważ darmowy plan nie udostępnia funkcjonalności slotów deploymentu aplikacja korzysta z płatnego tieru `S1`.
+
+![](screenshots/deployment-slots.png)
+
+
+Pliki `yml` Github Actions to odpowiednio [.github/workflows/main_learn-notes-with-me.yml](.github/workflows/main_learn-notes-with-me.yml) oraz
+[.github/workflows/staging_learn-notes-with-me(staging).yml](.github/workflows/staging_learn-notes-with-me(staging).yml).
+
+Zmienne środowiskowe wstrzykiwane są do aplikacji serwerowowej i znajdują się w `Application Settings`.
+
+![](screenshots/app-settings.png)
+
+## Application Insights
+
+W aplikacji zaimplementowana jest funkcjonalność metryk, która umożliwa podgląd na żywo wykorzystywania przez użytkowników co do dokładności na jakich stronach się znajdują, w które przyciski klikają etc.
+
+![](screenshots/live-metrics.png)
+
+Skonfigurowane jest także wywoływanie alertów mailowych wysyłanych do administratorów apliacji po osiągnięciu pewnej ilości błędów w aplikacji.
+
+![](screenshots/alert.png)
+
+Mamy także możliwość mierzenia wydajności aplikacji - w tym czasu wykonywania zapytania.
+
+![](screenshots/performance.png)
+
+## Azure Cosmos DB
+
+Baza danych Azure Cosmos DB składa się z jednego containera - `lesson` - przechowującego wszystkie lekcje rozpoczęte przez użytkowników aplikacji.
+
+![](screenshots/cosmosdb.png)
+
+## Storage account
+
+Aplikacja korzysta z Blob storage do przechowywania dźwięków `mp3` wykorzystywanych przez wirtualne pianino w aplikacji klienckiej. Przykładowy zestaw dźwięków możemy znaleźć pod adresem: [https://notesstorage.blob.core.windows.net/sounds/grand_piano_white_only.mp3](https://notesstorage.blob.core.windows.net/sounds/grand_piano_white_only.mp3)
+
+![](screenshots/blob.png)
+
+## Autoryzacja
+
+Aplikacja do procesu autoryzacji wykorzystuje usługę `Active Directory` skonfigurowaną odpowiednio do użycia z aplikacją typu Single-page. 
+
+![](screenshots/active-directory.png)
+
+Proces logowania użytkownika wywoływany jest po wcisnięciu przycisku `Sign In` na stronie startowej aplikacji.
+
